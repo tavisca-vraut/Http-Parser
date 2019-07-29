@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace HttpRequestParser
 {
@@ -22,6 +23,12 @@ namespace HttpRequestParser
                 responseObjectGenerator = new HttpResponseParser(file);
             }
 
+            LogHttpRequestObject(requestObjectGenerator);
+            LogHttpResponseObject(responseObjectGenerator); // TODO
+        }
+
+        private static void LogHttpRequestObject(HttpRequestParser requestObjectGenerator)
+        {
             dynamic requestObject = requestObjectGenerator.requestObject;
 
             System.Console.WriteLine("Request method name: " + requestObject["RequestMethodName"]);
@@ -29,7 +36,7 @@ namespace HttpRequestParser
             System.Console.WriteLine("HTTP Version: " + requestObject["HttpVersion"]);
             System.Console.WriteLine("Host: " + requestObject["Host"]);
             System.Console.WriteLine("\nAccept:");
-            foreach(var item in requestObject["Accept"])
+            foreach (var item in requestObject["Accept"])
             {
                 System.Console.WriteLine(item);
             }
@@ -46,7 +53,12 @@ namespace HttpRequestParser
             System.Console.WriteLine("\nParameters: Author => " + requestObject["Parameters"]["author"]);
 
             System.Console.ReadKey(true);
+        }
 
+        private static void LogHttpResponseObject(HttpResponseParser responseObjectGenerator)
+        {
+            // TODO
+            throw new NotImplementedException();
         }
     }
 }

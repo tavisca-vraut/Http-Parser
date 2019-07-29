@@ -17,21 +17,23 @@ namespace HttpRequestParser
         public void Process(string line, ref HttpRequestParser requestParser)
         {
             var KeyValue = line.Split(':');
+            var key = KeyValue[0];
+            var value = KeyValue[1];
 
-            if (IsAListOfValues(KeyValue[1]))
+            if (IsAListOfValues(value))
             {
-                var split2 = KeyValue[1].Split(',');
+                var values = value.Split(',');
 
-                for (int i = 0; i < split2.Length; i++)
+                for (int i = 0; i < values.Length; i++)
                 {
-                    split2[i] = split2[i].Trim();
+                    values[i] = values[i].Trim();
                 }
 
-                requestParser.requestObject.Add(KeyValue[0], split2);
+                requestParser.requestObject.Add(key, values);
             }
             else
             {
-                requestParser.requestObject.Add(KeyValue[0], KeyValue[1].Trim());
+                requestParser.requestObject.Add(key, value.Trim());
             }
         }
 
